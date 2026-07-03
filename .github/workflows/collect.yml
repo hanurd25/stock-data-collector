@@ -12,7 +12,7 @@ on:
     - cron: "*/30 7-20 * * 1-5"
   workflow_dispatch:
 
-jobs:
+jobs: #
   fetch:
     runs-on: ubuntu-latest
     steps:
