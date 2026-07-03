@@ -13,7 +13,7 @@ TICKERS = {
     "AAPL": {"name": "Apple", "exchange": "Nasdaq", "currency": "USD"},
     "JPM": {"name": "JPMorgan Chase", "exchange": "NYSE", "currency": "USD"},
 }
-# this will yield one csv per ticker:
+#  this will yield one csv per ticker:
 def fetch_and_save():
     timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
     os.makedirs("data", exist_ok=True)
