@@ -9,6 +9,13 @@ Automated collection of stock price data using GitHub Actions and `yfinance`. Ru
 - Each run commits its output CSV back to the repo, so data accumulates over time as a version-controlled history.
 
 
+## Settings:
+### Workflows
+
+Workflow permissions
+
+GitHub workflows needs
+Read and write permissions 
 
 
 ## Repo structure
