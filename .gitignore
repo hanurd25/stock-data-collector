@@ -152,4 +152,5 @@ Thumbs.db
 
 # IDE files (Optional but recommended)
 .vscode/
+.idea/.idea/
 .idea/
