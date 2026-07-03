@@ -8,6 +8,9 @@ Automated collection of stock price data using GitHub Actions and `yfinance`. Ru
 - `scripts/fetch_prices.py` fetches 1-minute interval price data for each ticker via `yfinance` and saves it to `data/`.
 - Each run commits its output CSV back to the repo, so data accumulates over time as a version-controlled history.
 
+
+
+
 ## Repo structure
 
 ```
@@ -69,7 +72,10 @@ git push
 
 Edit the `cron` line in `.github/workflows/collect.yml`:
 
+
+
 ```yaml
+# Can stop by commenting out the sceduele?
 on:
   schedule:
     - cron: "*/30 7-20 * * 1-5"   # every 30 min, 07:00-20:00 UTC, Mon-Fri
