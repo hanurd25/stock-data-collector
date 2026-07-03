@@ -13,10 +13,10 @@ TICKERS = {
     "AAPL": {"name": "Apple", "exchange": "Nasdaq", "currency": "USD"},
     "JPM": {"name": "JPMorgan Chase", "exchange": "NYSE", "currency": "USD"},
 }
-
+# this will yield one csv per ticker:
 def fetch_and_save():
     timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
-    all_data = []
+    os.makedirs("data", exist_ok=True)
 
     for ticker, meta in TICKERS.items():
         df = yf.download(ticker, period="1d", interval="1m", progress=False)
@@ -28,17 +28,11 @@ def fetch_and_save():
         df["exchange"] = meta["exchange"]
         df["currency"] = meta["currency"]
         df["fetched_at_utc"] = timestamp
-        all_data.append(df)
 
-    if not all_data:
-        print("No data fetched.")
-        return
-
-    combined = pd.concat(all_data)
-    os.makedirs("data", exist_ok=True)
-    outfile = f"data/prices_{timestamp}.csv"
-    combined.to_csv(outfile)
-    print(f"Saved {outfile} ({len(all_data)} tickers)")
+        outfile = f"data/{ticker}.csv"
+        file_exists = os.path.exists(outfile)
+        df.to_csv(outfile, mode="a", header=not file_exists)
+        print(f"Appended {ticker} data to {outfile}")
 
 if __name__ == "__main__":
     fetch_and_save()
