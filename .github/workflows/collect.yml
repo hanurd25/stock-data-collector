@@ -1,5 +1,8 @@
 name: Collect Stock Prices
 
+permissions:
+  contents: write
+
 on:
   schedule:
     - cron: "*/30 7-20 * * 1-5"  # every 30 min, 07:00-20:00 UTC, Mon-Fri — covers EU + US sessions
