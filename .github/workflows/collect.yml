@@ -3,9 +3,13 @@ name: Collect Stock Prices
 permissions:
   contents: write
 
+concurrency:
+  group: stock-data-collector
+  cancel-in-progress: false
+
 on:
   schedule:
-    - cron: "*/30 7-20 * * 1-5"  # every 30 min, 07:00-20:00 UTC, Mon-Fri — covers EU + US sessions
+    - cron: "*/30 7-20 * * 1-5"
   workflow_dispatch:
 
 jobs:
@@ -13,21 +17,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-
       - name: Install dependencies
         run: pip install -r requirements.txt
-
       - name: Fetch prices
         run: python scripts/fetch_prices.py
-
       - name: Commit and push data
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
           git add data/
           git commit -m "Add price data $(date -u +%Y-%m-%dT%H:%M:%S)" || echo "No changes to commit"
+          git pull --rebase origin main
           git push
