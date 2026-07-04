@@ -8,6 +8,7 @@ concurrency:
  cancel-in-progress: false
 
 on:
+
  schedule:
    - cron: "*/30 7-20 * * 1-5"
  workflow_dispatch:

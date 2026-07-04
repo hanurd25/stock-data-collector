@@ -82,10 +82,34 @@ Edit the `cron` line in `.github/workflows/collect.yml`:
 
 
 ```yaml
-# Can stop by commenting out the sceduele?
+# Can stop by commenting out the sceduele
+# Excamples on sceduele:
+
 on:
-  schedule:
-    - cron: "*/30 7-20 * * 1-5"   # every 30 min, 07:00-20:00 UTC, Mon-Fri
+ schedule:
+    - #
+  # Every 5 minutes, 07:00-20:00 UTC, weekdays — very high density, ~1560 runs/month
+  #- cron: "*/5 7-20 * * 1-5"
+  # Every 10 minutes, 07:00-20:00 UTC, weekdays — high density, ~780 runs/month
+  #- cron: "*/10 7-20 * * 1-5"
+  # Every 15 minutes, 07:00-20:00 UTC, weekdays — moderate-high density, ~520 runs/month
+  #- cron: "*/15 7-20 * * 1-5"  
+  # Every 30 minutes, 07:00-20:00 UTC, weekdays — current setting, ~560 runs/month
+  #- cron: "*/30 7-20 * * 1-5"
+  # Once per hour, 07:00-20:00 UTC, weekdays — low density, ~280 runs/month
+  #- cron: "0 7-20 * * 1-5"
+  # Twice a day (market open + close snapshot), weekdays — minimal, ~40 runs/month
+  #- cron: "0 7,20 * * 1-5"
+  # Once per day at market close (20:00 UTC), weekdays — daily closing price only
+  #- cron: "0 20 * * 1-5"
+  # European session only, every 30 min, weekdays (excludes US market hours)
+  #- cron: "*/30 7-15 * * 1-5"
+  # US session only, every 30 min, weekdays (excludes European market hours)
+  #- cron: "*/30 13-20 * * 1-5"
+  # Every 30 min, all 7 days (in case you ever add crypto or 24/7 assets)
+  #- cron: "*/30 7-20 * * *"
+   - cron: "*/30 7-20 * * 1-5"
+ workflow_dispatch:
 ```
 
 Cron format: `minute hour day month day-of-week`, all in **UTC**. Some examples:
